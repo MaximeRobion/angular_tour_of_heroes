@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 import { MessageService } from '../message.service';
@@ -28,4 +29,21 @@ export class HeroesComponent implements OnInit {
   //   this.selectedHero = hero;
   //   this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
   // }
+
+  // Method to add a new hero to the list, using a addHero method from heroService
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero)
+    .subscribe( hero => {
+      this.heroes.push(hero);
+    });
+  }
+
+  // Method to delete a hero from the list, using a deleteHero method from heroService
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero.id)
+    .subscribe();
+  }
 }

@@ -33,4 +33,12 @@ export class HeroDetailComponent {
   goBack(): void {
     this.location.back();
   }
+
+  // Save the changes made to the hero, through the heroService method: updateHero
+  save(): void {
+    if (this.hero) {
+      this.heroService.updateHero(this.hero)
+        .subscribe(() => this.goBack());
+    }
+  }
 }
